@@ -172,6 +172,8 @@
   .viewer { position: fixed; inset: 0; z-index: 50; background: rgba(20, 21, 26, .92);
     display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px;
     padding: max(16px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+  /* author display: grid beats the browser's own [hidden] rule, so restate it */
+  .viewer[hidden] { display: none; }
   .viewer figure { margin: 0; display: grid; justify-items: center; gap: 10px; min-width: 0; height: 100%; align-content: center; }
   .viewer img { max-height: calc(100vh - 110px); max-width: 100%; border-radius: 14px; object-fit: contain; }
   .viewer figcaption { color: #d7d8dd; font-size: 14px; text-align: center; max-width: 52ch; }
