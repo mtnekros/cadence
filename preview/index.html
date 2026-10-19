@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cadence Store Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+  /* layout: one narrow store-listing column, like a phone app page; screenshots scroll sideways in their own strip */
+  :root {
+    --bg: #f3f3f6; --surface: #ffffff; --fg: #23252d; --muted: #61646f; --line: #dedfe5;
+    --accent: #5b60c4; --mint: #3e8f72; --chip: #ececf2;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #2b2d35; --surface: #33353f; --fg: #e4e5ea; --muted: #a6a8b1; --line: #444754;
+    --accent: #8f94e6; --mint: #6db59b; --chip: #3b3e49; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #2b2d35; --surface: #33353f; --fg: #e4e5ea; --muted: #a6a8b1; --line: #444754;
+    --accent: #8f94e6; --mint: #6db59b; --chip: #3b3e49; color-scheme: dark }
+
+  body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--body); }
+  .page { max-width: 760px; margin: 0 auto; padding-block: 24px 64px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid; gap: 28px; }
+  .tag { justify-self: start; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 3px 10px; }
+
+  .head { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+  .head img { width: 88px; height: 88px; border-radius: 22px; display: block; }
+  .head h1 { font: 700 clamp(26px, 5vw, 34px)/1.1 var(--display); margin: 0; text-wrap: balance; }
+  .head .dev { color: var(--mint); font-weight: 600; margin-top: 4px; }
+  .head .sub { color: var(--muted); font-size: 14px; }
+
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--line); padding-block: 14px; }
+  .facts div { display: grid; justify-items: center; text-align: center; gap: 2px; padding-inline: 6px; min-width: 0; }
+  .facts div + div { border-left: 1px solid var(--line); }
+  .facts b { font: 700 17px/1.2 var(--display); }
+  .facts span { font-size: 12px; color: var(--muted); }
+
+  .cta { display: grid; gap: 8px; }
+  .cta .btn { background: var(--accent); color: #fff; border-radius: 12px; padding: 13px 16px; text-align: center; font-weight: 700; }
+  .cta p { margin: 0; font-size: 14px; color: var(--muted); text-align: center; }
+
+  .shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .shots img { height: 420px; max-height: 70vh; width: auto; border-radius: 14px;
+    border: 1px solid var(--line); scroll-snap-align: start; flex: none; }
+
+  h2 { font: 700 21px/1.2 var(--display); margin: 0 0 8px; }
+  .about p { margin: 0 0 10px; max-width: 65ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .chips span { background: var(--chip); border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600; }
+
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 24px; }
+  .features h3 { font: 700 13px/1.3 var(--body); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+  .features ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 15px; }
+
+  .feature-graphic img { width: 100%; border-radius: 14px; display: block; }
+
+  .safety { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 10px; }
+  .safety .row { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-size: 15px; }
+  .safety .row svg { width: 20px; height: 20px; margin-top: 2px; }
+  .safety .row small { display: block; color: var(--muted); font-size: 13px; }
+
+  .testers { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .testers ol { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; }
+  .foot { color: var(--muted); font-size: 13px; text-align: center; }
+
+  @media (max-width: 480px) {
+    .facts { grid-template-columns: repeat(2, 1fr); row-gap: 12px; }
+    .facts div:nth-child(3) { border-left: 0; }
+  }
+</style>
+
+<style>*,*::before,*::after{box-sizing:border-box} body{margin:0} img{max-width:100%}</style>
+</head>
+<body>
+<main class="page">
+  <span class="tag">Preview · coming to Android</span>
+
+  <header class="head">
+    <img src="img/icon.png" alt="Cadence app icon: a grid of mint and slate squares">
+    <div>
+      <h1>Cadence: Habits &amp; Streaks</h1>
+      <div class="dev">Diwash Tamang</div>
+      <div class="sub">Productivity · No ads · No in-app purchases</div>
+    </div>
+  </header>
+
+  <section class="facts" aria-label="At a glance">
+    <div><b>Free</b><span>no subscription</span></div>
+    <div><b>0</b><span>accounts needed</span></div>
+    <div><b>Offline</b><span>no internet access</span></div>
+    <div><b>Everyone</b><span>expected rating</span></div>
+  </section>
+
+  <section class="cta">
+    <div class="btn">Coming soon</div>
+    <p>In closed testing first. Want early access? See "Help me launch" below.</p>
+  </section>
+
+  <section class="shots" aria-label="Screenshots">
+    <img src="img/1-today.jpg" alt="Today screen: habits grouped by morning, evening and anytime, with streaks and a note">
+    <img src="img/2-day-sheet.jpg" alt="A habit's day sheet: done, start timer, how did it go, time sessions and a note">
+    <img src="img/3-focus-timer.jpg" alt="Focus timer running a Pomodoro, 24:42 left">
+    <img src="img/4-habit-page.jpg" alt="Exercise habit page: 35 check-ins, 15 day streak, October calendar">
+    <img src="img/5-progress.jpg" alt="Progress: 93% of scheduled habits done in October, 14 perfect days">
+    <img src="img/6-widget.jpg" alt="Home screen widget: today's five habits, 3 of 5 done, water at 6 of 8">
+  </section>
+
+  <section class="about">
+    <h2>About this app</h2>
+    <p>Cadence is a calm habit tracker. Plan your day, tick habits off, keep your streaks going, and time the things that take time. No account, no ads, no tracking: everything stays on your phone.</p>
+    <div class="chips"><span>Habit tracker</span><span>Streaks</span><span>Pomodoro</span><span>Widgets</span><span>Private</span></div>
+  </section>
+
+  <section class="features" aria-label="Features">
+    <div><h3>Your day at a glance</h3><ul>
+      <li>Habits grouped into morning, afternoon, evening and anytime</li>
+      <li>One tap to tick, or count up to a goal like 8 glasses of water</li>
+      <li>A note for any day, and how it went: showed up, good or great</li></ul></div>
+    <div><h3>Schedules that fit</h3><ul>
+      <li>Days of the week, times per week, days of the month, or every few days</li>
+      <li>Rest days and vacation dates keep your streak safe</li></ul></div>
+    <div><h3>Streaks and wins</h3><ul>
+      <li>A streak per habit and one for the whole day</li>
+      <li>Three streak freezes a month for the days that get away</li>
+      <li>Celebrations for perfect days, milestones and new bests</li></ul></div>
+    <div><h3>Timers built in</h3><ul>
+      <li>Stopwatch, countdown or Pomodoro</li>
+      <li>Time goals that tick the habit when you reach them</li>
+      <li>Every session kept in the habit's history</li></ul></div>
+    <div><h3>Reminders and widgets</h3><ul>
+      <li>Several reminder times per habit, as a notification or an alarm</li>
+      <li>Tick habits and run timers from your home screen</li></ul></div>
+    <div><h3>Progress</h3><ul>
+      <li>Calendars and completion rates per habit and per day</li>
+      <li>Export a backup file and take it to a new phone</li></ul></div>
+  </section>
+
+  <section class="feature-graphic" aria-label="Feature graphic">
+    <img src="img/feature.jpg" alt="Cadence banner: Habits, streaks and timers. Everything stays on your phone.">
+  </section>
+
+  <section class="safety">
+    <h2>Data safety</h2>
+    <div class="row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <div>No data collected<small>The app has no analytics and no account.</small></div>
+    </div>
+    <div class="row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="M4 12l4-4M4 12l4 4"/><path d="M3 3l18 18"/></svg>
+      <div>No data shared with third parties<small>The app doesn't ask for internet access, so it can't send anything.</small></div>
+    </div>
+    <div class="row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+      <div>Everything stays on your phone<small>Backups are files you save wherever you choose.</small></div>
+    </div>
+  </section>
+
+  <section class="testers">
+    <h2>Help me launch</h2>
+    <p>Google Play asks new developers to run a closed test with at least 12 people for 14 days before the app can go public. If you have an Android phone, you can be one of them:</p>
+    <ol>
+      <li>Send me the Gmail address you use on your phone.</li>
+      <li>I'll send you a link to join the test and install Cadence from Play.</li>
+      <li>Keep it installed for two weeks and use it. Feedback is very welcome.</li>
+    </ol>
+  </section>
+
+  <p class="foot">A preview of the store page, made from real screenshots of the app. Details may change before launch. <a href="https://mtnekros.github.io/cadence/privacy-policy.html">Privacy policy</a></p>
+</main>
+</body>
+</html>
