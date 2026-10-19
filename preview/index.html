@@ -9,17 +9,11 @@
 <style>
   /* layout: one narrow store-listing column, like a phone app page; screenshots scroll sideways in their own strip */
   :root {
-    --bg: #f3f3f6; --surface: #ffffff; --fg: #23252d; --muted: #61646f; --line: #dedfe5;
+    --bg: #ffffff; --surface: #f5f5f8; --fg: #23252d; --muted: #61646f; --line: #dedfe5;
     --accent: #5b60c4; --mint: #3e8f72; --chip: #ececf2;
     --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
     --body: "Manrope", "Segoe UI", system-ui, sans-serif;
   }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-    --bg: #2b2d35; --surface: #33353f; --fg: #e4e5ea; --muted: #a6a8b1; --line: #444754;
-    --accent: #8f94e6; --mint: #6db59b; --chip: #3b3e49; color-scheme: dark } }
-  :root[data-theme="dark"] {
-    --bg: #2b2d35; --surface: #33353f; --fg: #e4e5ea; --muted: #a6a8b1; --line: #444754;
-    --accent: #8f94e6; --mint: #6db59b; --chip: #3b3e49; color-scheme: dark }
 
   body { background: var(--bg); color: var(--fg); font: 16px/1.55 var(--body); }
   .page { max-width: 760px; margin: 0 auto; padding-block: 24px 64px;
