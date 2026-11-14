@@ -23,7 +23,7 @@
 <body>
 <main>
   <h1>Daybeat Privacy Policy</h1>
-  <p class="date">Effective 19 October 2026</p>
+  <p class="date">Effective 14 November 2026</p>
 
   <p>Daybeat is a habit tracker for Android, made by one independent developer. In short: <strong>everything you enter stays on your phone. The app collects nothing, shares nothing, and has no way to send data over the internet.</strong></p>
 
@@ -36,6 +36,12 @@
   <h2>Backups</h2>
   <p>You can export a backup file from Settings. You choose where it is saved: your phone's storage, a cloud drive app, or anywhere else Android offers. Once saved, that file is handled by whichever app or service you chose, under its own terms. Importing a backup only reads the file you pick.</p>
 
+  <h2>Spoken reminders</h2>
+  <p>If you turn on "Say it out loud" for a habit, its reminder hands the habit's name, and its Why if you chose that, to the text-to-speech engine installed on your phone (for example Google's or Samsung's), which reads it aloud. Daybeat sends that text nowhere else. The engine is a separate app on your phone and works under its own terms.</p>
+
+  <h2>App updates</h2>
+  <p>When you open Daybeat, it asks the Google Play Store app on your phone whether a newer version is available, and Play can download it for you. That check and download are done by Google Play under Google's terms. Daybeat itself still has no internet access and sends none of your data.</p>
+
   <h2>Permissions and why they are used</h2>
   <ul>
     <li><strong>Notifications</strong>: habit reminders and the timer.</li>
@@ -43,7 +49,8 @@
     <li><strong>Full-screen notifications</strong>: reminders and timers you set to ring as an alarm can show over the lock screen.</li>
     <li><strong>Run at startup</strong>: puts your reminders back after the phone restarts.</li>
     <li><strong>Vibration and keeping the device awake</strong>: so a reminder or timer alarm is noticed.</li>
-    <li><strong>Read storage</strong> (Android 12 and older only): to open a backup file you choose to import.</li>
+    <li><strong>Foreground service (media playback)</strong>: an alarm plays its sound, fades it in and keeps ringing until you stop it.</li>
+    <li><strong>View network state</strong>: added by Android's background-task library (WorkManager), It only lets the app see whether the phone is online; it cannot send anything.</li>
   </ul>
   <p>None of these permissions are used to collect or send information.</p>
 
